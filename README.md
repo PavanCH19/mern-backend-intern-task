@@ -1,21 +1,23 @@
 # 🧠 Backend Developer Intern – Project Assignment
 
-### 🚀 Tech Stack
+---
+
+## 🚀 Tech Stack
 
 **Backend:** Node.js, Express.js, MongoDB, Mongoose
 **Frontend:** React (Vite)
-**Auth:** JWT Authentication, bcrypt password hashing
-**Docs:** Swagger UI + Postman Collection
+**Authentication:** JWT, bcrypt password hashing
+**Documentation:** Swagger UI + Postman Collection
 **Validation:** express-validator
 **Logging:** morgan
 **Versioning:** API v1
-**Database:** MongoDB (local or Atlas)
+**Database:** MongoDB (Local or Atlas)
 
 ---
 
-## 📁 Project Overview
+## 📂 Project Overview
 
-This project demonstrates secure, scalable backend API development with user authentication, role-based access control, and CRUD operations — integrated with a simple React frontend for testing APIs.
+This project demonstrates secure, scalable backend API development with user authentication, role-based access control, and CRUD operations. It also includes a simple React frontend for testing the APIs.
 
 ---
 
@@ -23,48 +25,60 @@ This project demonstrates secure, scalable backend API development with user aut
 
 ### ✅ Backend (Primary Focus)
 
-* **User Registration & Login**
+1. **User Authentication**
 
-  * Passwords hashed using **bcrypt**
-  * JWT-based authentication
-* **Role-Based Access**
+   * Registration and Login APIs
+   * Passwords hashed using **bcrypt**
+   * JWT-based authentication
 
-  * `user` and `admin` roles
-* **CRUD APIs**
+2. **Role-Based Access Control (RBAC)**
 
-  * Entity: **Tasks**
-  * Users can manage their own tasks
-  * Admin can view/update/delete all tasks
-* **API Versioning**
+   * Two roles: `user` and `admin`
+   * Admins can view/update/delete all tasks
 
-  * Base URL: `/api/v1/...`
-* **Validation & Error Handling**
+3. **CRUD Operations (Tasks)**
 
-  * Using `express-validator` and custom middleware
-* **Swagger API Documentation**
+   * Users can manage their own tasks
+   * Admins have full control
 
-  * Live Docs: [http://localhost:4000/api/v1/docs](http://localhost:4000/api/v1/docs)
-* **Postman Collection**
+4. **API Versioning**
 
-  * Provided below for quick testing
+   * Base URL: `/api/v1/...`
 
-### ✅ Frontend (Supportive)
+5. **Validation & Error Handling**
 
-* **React (Vite) UI**
+   * Input validation using `express-validator`
+   * Custom error handler middleware
 
-  * Register new users
-  * Login and store JWT token in localStorage
-  * Dashboard to view, create, and delete tasks
-* **Fetch-based API calls**
+6. **API Documentation (Swagger)**
 
-  * Connected directly with backend
-* **Role Handling**
+   * Accessible at: [http://localhost:4000/api/v1/docs](http://localhost:4000/api/v1/docs)
 
-  * Access restricted to logged-in users only
+7. **Postman Collection**
+
+   * Included inside **server folder** as: `intern_task.postman_collection.json`
 
 ---
 
-## 🧮 Project Structure
+### ✅ Frontend (Supportive)
+
+1. **React (Vite) App**
+
+   * Register new users
+   * Login and store JWT token in localStorage
+   * Dashboard to view, create, edit, and delete tasks
+
+2. **Axios-based API calls**
+
+   * Connected directly to backend
+
+3. **Role Handling**
+
+   * Access restricted to authenticated users only
+
+---
+
+## 🤍 Project Structure
 
 ```
 backend_task/
@@ -77,10 +91,11 @@ backend_task/
 │   │   ├── middleware/   # Auth, Role, Error handlers
 │   │   ├── docs/         # Swagger setup
 │   │   ├── utils/        # Logger
-│   │   └── controller/   # api controller
+│   │   └── controller/   # Controllers
 │   ├── .env
-│   ├── server.js         # entry point 
-│   └── package.json
+│   ├── server.js         # Entry point
+│   ├── package.json
+│   └── intern_task.postman_collection.json
 │
 └── frontend/
     ├── src/
@@ -93,26 +108,26 @@ backend_task/
 
 ---
 
-## 🡩‍💻 Installation & Setup
+## 🔁 Installation & Setup
 
-### 1️⃣ Backend Setup
+### Step 1️⃣ Backend Setup
 
-#### 🪾 Prerequisites:
+#### Prerequisites:
 
 * Node.js (v18+)
 * MongoDB (Local or Atlas)
 * Postman (for API testing)
 
-#### 📦 Installation:
+#### Installation:
 
 ```bash
 cd backend
 npm install
 ```
 
-#### ⚙️ Environment Setup:
+#### Environment Variables:
 
-Create `.env` file inside `/backend`:
+Create a `.env` file inside `/backend`:
 
 ```env
 PORT=4000
@@ -121,26 +136,26 @@ JWT_SECRET=SuperStrongSecretKey
 JWT_EXPIRES_IN=1h
 ```
 
-#### ▶️ Run Server:
+#### Run Server:
 
 ```bash
 npm run dev
 ```
 
-✅ Output should show:
+Expected output:
 
 ```
 🚀 Server running on port 4000
 ✅ MongoDB connected
 ```
 
-#### 🧯 Swagger Docs:
+#### Swagger Documentation:
 
 Visit → [http://localhost:4000/api/v1/docs](http://localhost:4000/api/v1/docs)
 
 ---
 
-### 2️⃣ Frontend Setup
+### Step 2️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -150,39 +165,36 @@ npm run dev
 
 Visit → [http://localhost:5173](http://localhost:5173)
 
-#### ✨ Pages:
+#### Available Pages:
 
-* **Register:** `/register`
-* **Login:** `/login`
-* **Dashboard:** `/dashboard` (JWT Protected)
+* `/register` → Register new users
+* `/login` → Login page
+* `/dashboard` → JWT protected dashboard
 
 ---
 
-## 🥪 API Endpoints
+## 🧮 API Endpoints
 
-| Method | Endpoint                | Description                      | Auth Required | Role       |
-| ------ | ----------------------- | -------------------------------- | ------------- | ---------- |
-| POST   | `/api/v1/auth/register` | Register new user                | ❌             | Any        |
-| POST   | `/api/v1/auth/login`    | Login user                       | ❌             | Any        |
-| GET    | `/api/v1/tasks`         | Get tasks (self / all for admin) | ✅             | user/admin |
-| POST   | `/api/v1/tasks`         | Create new task                  | ✅             | user/admin |
-| PUT    | `/api/v1/tasks/:id`     | Update task                      | ✅             | user/admin |
-| DELETE | `/api/v1/tasks/:id`     | Delete task                      | ✅             | user/admin |
+| Method | Endpoint                | Description             | Auth Required | Role       |
+| ------ | ----------------------- | ----------------------- | ------------- | ---------- |
+| POST   | `/api/v1/auth/register` | Register a new user     | ❌             | Any        |
+| POST   | `/api/v1/auth/login`    | Login and get JWT token | ❌             | Any        |
+| GET    | `/api/v1/tasks`         | Get all/self tasks      | ✅             | user/admin |
+| POST   | `/api/v1/tasks`         | Create a new task       | ✅             | user/admin |
+| PUT    | `/api/v1/tasks/:id`     | Update existing task    | ✅             | user/admin |
+| DELETE | `/api/v1/tasks/:id`     | Delete task             | ✅             | user/admin |
 
 ---
 
 ## 📩 Postman Collection
 
-Save this file as `intern_task.postman_collection.json` and import into Postman.
+File Location → `/backend/intern_task.postman_collection.json`
 
-👉 [Download Postman JSON](https://pastebin.com/raw/7WvG1t5z)
-*(or copy from chat earlier)*
+Import into Postman → Collections → Import → Select this JSON file.
 
 ---
 
-## 📊 Example Log Output
-
-Your backend console should show logs like this when tested via Postman or frontend:
+## 📊 Example Backend Logs
 
 ```
 🚀 Server running on port 4000
@@ -191,6 +203,7 @@ POST /api/v1/auth/register 201
 POST /api/v1/auth/login 200
 GET /api/v1/tasks 200
 POST /api/v1/tasks 201
+PUT /api/v1/tasks/:id 200
 DELETE /api/v1/tasks/:id 200
 ```
 
@@ -198,46 +211,43 @@ Save these logs as `backend_logs.txt` for submission.
 
 ---
 
-## 🥱 Scalability & Deployment Notes
+## 🧱 Scalability & Deployment Notes
 
-* Stateless JWT enables **horizontal scaling** behind a load balancer.
-* Use **MongoDB Atlas** (auto-sharded, replicated).
-* Deploy backend with **Docker + Nginx + Node.js**.
-* Split Auth & Tasks into **microservices** for modular scaling.
-* Use **Redis** for:
-
-  * Caching frequently accessed data
-  * Rate-limiting (e.g., login attempts)
-* Add **Winston + Morgan** for centralized logging.
-* Future: CI/CD via **GitHub Actions** and container orchestration via **Kubernetes**.
+1. Stateless JWT enables **horizontal scaling** behind load balancers.
+2. Use **MongoDB Atlas** for sharded, replicated DB clusters.
+3. Deploy backend using **Docker + Nginx**.
+4. Split Auth & Tasks into **microservices**.
+5. Integrate **Redis** for caching and rate-limiting.
+6. Implement **Winston + Morgan** for centralized logging.
+7. Setup **CI/CD** pipelines with **GitHub Actions**.
 
 ---
 
 ## 🛡️ Security Implementations
 
-* Passwords are **hashed with bcrypt** (salt rounds = 10).
-* **JWT** used for stateless authentication (expires in 1h).
-* **Role-based access control** (RBAC) for admin/user.
-* **Input validation** using express-validator.
-* **CORS** enabled only for frontend origin (`localhost:5173`).
-* **Environment variables** hidden using `.env`.
+* Passwords hashed using **bcrypt** (salt rounds = 10)
+* **JWT** tokens with 1-hour expiry
+* **Role-based access control (RBAC)**
+* **Input validation** using express-validator
+* **CORS** limited to frontend origin (`localhost:5173`)
+* **.env** used to hide secrets
 
 ---
 
-## 📟 Deliverables
+## 🧾 Deliverables
 
-* ✅ Backend hosted on GitHub with README.md
+* ✅ GitHub Repository (Frontend + Backend)
 * ✅ Working APIs (Auth + CRUD)
-* ✅ Basic React frontend connected to APIs
-* ✅ Postman collection file
-* ✅ Short scalability note
-* ✅ Log file from server (backend_logs.txt)
+* ✅ React Frontend integrated with backend
+* ✅ Postman Collection (`intern_task.postman_collection.json`)
+* ✅ Log file (`backend_logs.txt`)
+* ✅ Scalability & Security notes
 
 ---
 
 ## 📧 Submission Instructions
 
-**Subject:** `Frontend Developer Task`
+**Email Subject:** `Backend Developer Task Submission`
 **To:**
 
 * [saami@bajarangs.com](mailto:saami@bajarangs.com)
@@ -246,27 +256,27 @@ Save these logs as `backend_logs.txt` for submission.
   **CC:**
 * [sonika@primetrade.ai](mailto:sonika@primetrade.ai)
 
-Attach:
+### Attach:
 
-1. GitHub Repo Link (Frontend + Backend) "https://github.com/PavanCH19/mern-backend-intern-task.git"
+1. GitHub Repository Link → [https://github.com/PavanCH19/mern-backend-intern-task.git](https://github.com/PavanCH19/mern-backend-intern-task.git)
 2. `backend_logs.txt`
-3. Postman Collection (`intern_task.postman_collection.json`)
+3. `intern_task.postman_collection.json`
 4. Resume
 
 ---
 
 ## 🏁 Example Demo Flow
 
-1. Register → Login
-2. Copy JWT Token (auto stored in localStorage)
-3. Visit Dashboard → Create, View, Delete tasks
-4. View API Docs on Swagger UI
+1. Register a user
+2. Login → JWT saved to localStorage
+3. Dashboard → Create / Edit / Delete tasks
+4. Swagger UI → Test endpoints visually
 
 ---
 
-## 📸 (Optional) Add Screenshots
+## 📸 Optional Screenshots
 
-If you want to impress the reviewers, include screenshots of:
+Include screenshots of:
 
 * ✅ Swagger UI
 * ✅ Postman test results
@@ -285,9 +295,9 @@ If you want to impress the reviewers, include screenshots of:
 
 ## ⭐ Final Notes
 
-This project demonstrates:
+This project showcases:
 
-* API design best practices (REST principles)
-* Secure authentication (JWT + bcrypt)
-* Clean project structure for scalability
-* Functional frontend integration
+* RESTful API design principles
+* Secure JWT Authentication
+* Scalable architecture with Node.js & MongoDB
+* Functional Frontend integration using React
